@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const helmet = require("helmet");
 const bodyParser = require("body-parser");
 const { errors } = require("celebrate");
-const { PORT, MONGODB_URL } = require("./utils/config");
+const { PORT, SRV_MONGO_URL } = require("./utils/config");
 const { limiter } = require("./middlewares/limiter");
 const { requestLogger, errorLogger } = require("./middlewares/logger");
 const errorHandler = require("./middlewares/errorHandler");
@@ -13,7 +13,7 @@ const router = require("./routes/index");
 const app = express();
 
 mongoose.set("strictQuery", false);
-mongoose.connect(MONGODB_URL);
+mongoose.connect(SRV_MONGO_URL);
 
 app.use(cors());
 app.use(limiter);
