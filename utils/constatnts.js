@@ -15,6 +15,7 @@ const WRONG_AUTH_DATA_MESSAGE = "Введен не верный e-mail или pa
 const AUTH_REQUIRED_MESSAGE = "Необходима авторизация";
 const FORBIDDEN_ERROR_MESSAGE = "Нет прав доступа";
 const ALREADY_EXIST_MESSAGE = "Пользователь с такими данными уже зарегистрирован";
+const PAGE_NOT_FOUND = "Страница не найдена";
 
 module.exports = {
   NOT_FOUND_ERROR_CODE,
@@ -33,4 +34,5 @@ module.exports = {
   FORBIDDEN_ERROR_MESSAGE,
   ALREADY_EXIST_CODE,
   ALREADY_EXIST_MESSAGE,
+  PAGE_NOT_FOUND,
 };

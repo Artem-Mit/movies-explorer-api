@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
+const { JWT_SECRET } = require("../utils/config");
 
 const {
   USER_DOES_NOT_EXIST,
@@ -11,8 +12,6 @@ const {
 const NotFoundError = require("../errors/notFoundError");
 const ValidationError = require("../errors/validationError");
 const AuthError = require("../errors/authError");
-
-const { NODE_ENV, JWT_SECRET } = process.env;
 
 const getMe = async (req, res, next) => {
   try {
@@ -54,7 +53,7 @@ const createUser = async (req, res, next) => {
     const newUser = await User.create({ email, password: hash, name });
     const newUserData = newUser.toObject();
     delete newUserData.password;
-    res.send({ newUserData });
+    res.send({ newUser: newUserData });
   } catch (err) {
     if (err.name === "ValidationError") {
       next(new ValidationError(VALIDATION_ERROR_MESSAGE));
@@ -75,7 +74,7 @@ const login = async (req, res, next) => {
     if (!comparedPass) {
       throw new AuthError(WRONG_AUTH_DATA_MESSAGE);
     }
-    const token = jwt.sign({ _id: user._id }, NODE_ENV === "production" ? JWT_SECRET : "dev-secret", { expiresIn: "7d" });
+    const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: "7d" });
     res.cookie("jwt", token, { maxAge: 3600000 * 24 * 7, httpOnly: true }).send({ token });
   } catch (err) {
     next(err);
