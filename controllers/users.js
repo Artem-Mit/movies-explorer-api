@@ -1,17 +1,17 @@
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const User = require("../models/user");
-const { JWT_SECRET } = require("../utils/config");
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const User = require('../models/user');
+const { JWT_SECRET } = require('../utils/config');
 
 const {
   USER_DOES_NOT_EXIST,
   WRONG_USER_ID,
   VALIDATION_ERROR_MESSAGE,
   WRONG_AUTH_DATA_MESSAGE,
-} = require("../utils/constatnts");
-const NotFoundError = require("../errors/notFoundError");
-const ValidationError = require("../errors/validationError");
-const AuthError = require("../errors/authError");
+} = require('../utils/constatnts');
+const NotFoundError = require('../errors/notFoundError');
+const ValidationError = require('../errors/validationError');
+const AuthError = require('../errors/authError');
 
 const getMe = async (req, res, next) => {
   try {
@@ -21,7 +21,7 @@ const getMe = async (req, res, next) => {
     }
     res.send(me);
   } catch (err) {
-    if (err.name === "CastError") {
+    if (err.name === 'CastError') {
       next(new ValidationError(WRONG_USER_ID));
       return;
     }
@@ -38,7 +38,7 @@ const updateMe = async (req, res, next) => {
     );
     res.send(updatedUser);
   } catch (err) {
-    if (err.name === "ValidationError") {
+    if (err.name === 'ValidationError') {
       next(new ValidationError(VALIDATION_ERROR_MESSAGE));
       return;
     }
@@ -55,7 +55,7 @@ const createUser = async (req, res, next) => {
     delete newUserData.password;
     res.send({ newUser: newUserData });
   } catch (err) {
-    if (err.name === "ValidationError") {
+    if (err.name === 'ValidationError') {
       next(new ValidationError(VALIDATION_ERROR_MESSAGE));
       return;
     }
@@ -66,7 +66,7 @@ const createUser = async (req, res, next) => {
 const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({ email }).select("+password");
+    const user = await User.findOne({ email }).select('+password');
     if (!user) {
       throw new AuthError(WRONG_AUTH_DATA_MESSAGE);
     }
@@ -74,8 +74,8 @@ const login = async (req, res, next) => {
     if (!comparedPass) {
       throw new AuthError(WRONG_AUTH_DATA_MESSAGE);
     }
-    const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: "7d" });
-    res.cookie("jwt", token, { maxAge: 3600000 * 24 * 7, httpOnly: true }).send({ token });
+    const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '7d' });
+    res.send({ token });
   } catch (err) {
     next(err);
   }

@@ -1,13 +1,13 @@
-const Movie = require("../models/movie");
+const Movie = require('../models/movie');
 
 const {
   MOVIE_DOES_NOT_EXIST,
   VALIDATION_ERROR_MESSAGE,
   FORBIDDEN_ERROR_MESSAGE,
-} = require("../utils/constatnts");
-const NotFoundError = require("../errors/notFoundError");
-const ValidationError = require("../errors/validationError");
-const ForbiddenError = require("../errors/forbiddenError");
+} = require('../utils/constatnts');
+const NotFoundError = require('../errors/notFoundError');
+const ValidationError = require('../errors/validationError');
+const ForbiddenError = require('../errors/forbiddenError');
 
 const getMovies = async (req, res, next) => {
   try {
@@ -27,7 +27,7 @@ const createMovie = async (req, res, next) => {
     const createdMovie = await Movie.create(movie);
     res.send(createdMovie);
   } catch (err) {
-    if (err.name === "ValidationError") {
+    if (err.name === 'ValidationError') {
       next(new ValidationError(VALIDATION_ERROR_MESSAGE));
       return;
     }
@@ -37,8 +37,8 @@ const createMovie = async (req, res, next) => {
 
 const deleteMovie = async (req, res, next) => {
   try {
-    const deletedMovie = await Movie.findOne({ movieId: req.params.movieId });
-    if (deletedMovie.length === 0) {
+    const deletedMovie = await Movie.findById(req.params.movieId);
+    if (deletedMovie === null) {
       throw new NotFoundError(MOVIE_DOES_NOT_EXIST);
     }
     const owner = deletedMovie.owner.toString();
@@ -48,7 +48,7 @@ const deleteMovie = async (req, res, next) => {
     deletedMovie.deleteOne({ _id: deletedMovie._id });
     res.send(deletedMovie);
   } catch (err) {
-    if (err.name === "CastError") {
+    if (err.name === 'CastError') {
       next(new ValidationError(VALIDATION_ERROR_MESSAGE));
       return;
     }

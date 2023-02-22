@@ -1,27 +1,27 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const urlExpression = /^(https?:\/\/)(www.?)?[\d\S]+#?$/i;
 
 const movieSchema = new mongoose.Schema({
   country: {
     type: String,
-    requred: true,
+    required: true,
   },
   director: {
     type: String,
-    requred: true,
+    required: true,
   },
   duration: {
     type: Number,
-    requred: true,
+    required: true,
   },
   year: {
     type: String,
-    requred: true,
+    required: true,
   },
   description: {
     type: String,
-    requred: true,
+    required: true,
   },
   image: {
     type: String,
@@ -49,7 +49,7 @@ const movieSchema = new mongoose.Schema({
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "user",
+    ref: 'user',
     required: true,
   },
   movieId: {
@@ -66,4 +66,4 @@ const movieSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("movie", movieSchema);
+module.exports = mongoose.model('movie', movieSchema);

@@ -1,20 +1,9 @@
-const router = require("express").Router();
-const { celebrate, Joi } = require("celebrate");
-const { createUser, login } = require("../controllers/users");
+const router = require('express').Router();
+const { createUser, login } = require('../controllers/users');
+const { singInChecker, signUpChecker } = require('../utils/joiSchemas');
 
-router.post("/signin", celebrate({
-  body: Joi.object().keys({
-    email: Joi.string().required().email(),
-    password: Joi.string().required(),
-  }),
-}), login);
+router.post('/signin', singInChecker, login);
 
-router.post("/signup", celebrate({
-  body: Joi.object().keys({
-    name: Joi.string().min(2).max(30),
-    email: Joi.string().required().email(),
-    password: Joi.string().required(),
-  }),
-}), createUser);
+router.post('/signup', signUpChecker, createUser);
 
 module.exports = router;

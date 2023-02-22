@@ -5,17 +5,17 @@ const AUTH_ERROR_CODE = 401;
 const FORBIDDEN_ERROR_CODE = 403;
 const ALREADY_EXIST_CODE = 409;
 
-const DEFAULT_ERROR_MESSAGE = "На сервере произошла ошибка";
-const WRONG_MOVIE_ID = "Передан некорректный Id фильма";
-const MOVIE_DOES_NOT_EXIST = "Фильмы не найдены";
-const VALIDATION_ERROR_MESSAGE = "Произошла ошибка валидации";
-const USER_DOES_NOT_EXIST = "Пользователя не существует";
-const WRONG_USER_ID = "Передан некорректный Id пользователя";
-const WRONG_AUTH_DATA_MESSAGE = "Введен не верный e-mail или password";
-const AUTH_REQUIRED_MESSAGE = "Необходима авторизация";
-const FORBIDDEN_ERROR_MESSAGE = "Нет прав доступа";
-const ALREADY_EXIST_MESSAGE = "Пользователь с такими данными уже зарегистрирован";
-const PAGE_NOT_FOUND = "Страница не найдена";
+const DEFAULT_ERROR_MESSAGE = 'На сервере произошла ошибка';
+const WRONG_MOVIE_ID = 'Передан некорректный Id фильма';
+const MOVIE_DOES_NOT_EXIST = 'Фильмы не найдены';
+const VALIDATION_ERROR_MESSAGE = 'Произошла ошибка валидации';
+const USER_DOES_NOT_EXIST = 'Пользователя не существует';
+const WRONG_USER_ID = 'Передан некорректный Id пользователя';
+const WRONG_AUTH_DATA_MESSAGE = 'Введен не верный e-mail или password';
+const AUTH_REQUIRED_MESSAGE = 'Необходима авторизация';
+const FORBIDDEN_ERROR_MESSAGE = 'Нет прав доступа';
+const ALREADY_EXIST_MESSAGE = 'Пользователь с такими данными уже зарегистрирован';
+const PAGE_NOT_FOUND = 'Страница не найдена';
 
 module.exports = {
   NOT_FOUND_ERROR_CODE,
